@@ -1,0 +1,225 @@
+# Namespace declarations
+@prefix ex: <http://www.example.org/#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+
+ex:hasBeenClimbedBy a rdf:Property.
+ex:firstClimbedBy rdfs:SubPropertyOf ex:hasBeenClimbedBy.
+ex:firstClimbedBy rdfs:domain ex:Mountain; rdfs:range ex:Person.
+
+ex:hasClimbed a rdf:Property.
+ex:firstClimbedBy rdfs:domain ex:Person; rdfs:range ex:Mountain.
+ex:hasClimbed owl:inverseOf ex:hasBeenClimbedBy.
+
+ex:LocatedIn a rdf:Property.
+ex:locatedInRegion rdfs:SubPropertyOf ex:LocatedIn.
+ex:locatedInRegion rdfs:domain ex:Mountain; rdfs:range ex:Region.
+ex:RegLocatedInC rdfs:SubPropertyOf ex:LocatedIn.
+ex:RegLocatedInC rdfs:domain ex:Region; rdfs:range ex:Country.
+ex:CapitalOf rdfs:SubPropertyOf ex:LocatedIn.
+ex:CapitalOf rdfs:domain ex:City; rdfs:range ex:Country.ex:CapitalOf a owl:InverseFunctionalProperty
+
+ex:HasCapital a rdfs:Property.
+ex:HasCapital rdfs:domain ex:Country; rdfs:range ex:City.
+
+ex:HasCapital a owl:FunctionalProperty.
+
+ex:CapitalOf owl:inverseOf ex:HasCapital
+
+
+# -- RDF data  -- 
+
+ex:MountEverest rdf:type ex:Mountain .
+ex:MountEverest ex:locatedInRegion ex:Khumbu .
+ex:MountEverest ex:locatedInRegion ex:Xigaze .
+ex:MountEverest ex:hasHeightInMeter 8848 .
+ex:MountEverest ex:firstClimbed [
+   ex:firstClimbedBy ex:TenzingNorgay ;
+   ex:firstClimbedBy ex:EdmundHillary ;
+   ex:firstClimbedInYear 1953 ;
+] .
+ex:MountEverest ex:hasName "Mount Everest"@en .
+ex:MountEverest ex:hasAlternativeName "Sagarmāthā"@ne .
+ex:MountEverest ex:hasAlternativeName "Chomolungma"@bo .
+
+ex:Lhotse rdf:type ex:Mountain .
+ex:Lhotse ex:locatedInRegion ex:Khumbu .
+ex:Lhotse ex:locatedInRegion ex:Xigaze .
+ex:Lhotse ex:hasHeightInMeter 8516 .
+ex:Lhotse ex:firstClimbed [
+   ex:firstClimbedBy ex:ErnstReiss  ;
+   ex:firstClimbedBy ex:FritzLuchsinger ;
+   ex:firstClimbedInYear 1956 ;
+] .
+ex:Lhotse ex:hasName "Lhotse" .
+
+ex:AmaDablam rdf:type ex:Mountain .
+ex:AmaDablam ex:locatedInRegion ex:Khumbu .
+ex:AmaDablam ex:hasHeightInMeter 6170 .
+ex:AmaDablam ex:firstClimbed [
+   ex:firstClimbedBy ex:MikeGill ;
+   ex:firstClimbedBy ex:BarryBishop ;
+   ex:firstClimbedBy ex:MikeWard ;
+   ex:firstClimbedBy ex:WallyRomanes ;
+] .
+ex:AmaDablam ex:hasName "Ama Dablam"@en .
+
+ex:AnnapurnaI rdf:type ex:Mountain .
+ex:AnnapurnaI ex:locatedInRegion ex:AnnapurnaConservationArea .
+ex:AnnapurnaI ex:hasHeightInMeter 8091 .
+ex:AnnapurnaI ex:hasName "AnnapurnaI"@en .
+
+ex:MountKilimanjaro rdf:type ex:Mountain .
+ex:MountKilimanjaro ex:locatedInRegion ex:KilimanjaroRegion .
+ex:MountKilimanjaro ex:hasHeightInMeter 5895 .
+ex:MountKilimanjaro ex:firstClimbed [
+   ex:firstClimbedBy ex:HansMeyer ;
+   ex:firstClimbedBy ex:LudwigPurtscheller ;
+   ex:firstClimbedInYear 1889 ;
+] .
+ex:MountKilimanjaro ex:hasName "Mount Kilimanjaro"@en .
+
+ex:KilimanjaroRegion rdf:type ex:TanzanianRegion .
+ex:KilimanjaroRegion ex:RegLocatedInC ex:Tanzania.
+ex:Tanzania ex:InhabitedWith "59734218 ".
+ex:Tanzania ex:HasCapital ex:Dodoma.
+ex:Dodoma ex:CapitalOf ex:Tanzania.
+
+
+
+ex:AnnapurnaConservationArea ex:RegLocatedInC ex:Nepal.
+ex:AnnapurnaConservationArea rdf:type ex:NepaleseRegion .
+ex:Nepal ex:InhabitedWith "29646700".
+ex:Nepal ex:HasCapital ex:Kathmandu.
+ex:Kathmandu ex:CapitalOf ex:Nepal.
+
+
+ex:Xigaze rdf:type ex:TibetanRegion .
+ex:Xigaze ex:hasName "Xigaze" .
+ex:Xigaze ex:RegLocatedInC ex:China.
+ex:China ex:InhabitedWith "1439323776".
+ex:China ex:HasCapital ex:Beijing.
+ex:Beijing ex:CapitalOf ex:China.
+
+
+ex:TenzingNorgay rdf:type ex:Person .
+ex:TenzingNorgay ex:hasName "Tenzing Norgay" .
+ex:TenzingNorgay ex:hasClimbed ex:MountEverest .
+ex:TenzingNorgay ex:BirthDate "1914-05-29T00:00:00".
+ex:TenzingNorgay ex:DeathDate"1986-05-09T00:00:00".
+
+ex:EdmundHillary rdf:type ex:Person .
+ex:EdmundHillary ex:hasName "Edmund Hillary" .
+ex:EdmundHillary ex:BirthDate "1919-07-20T00:00:00".
+ex:EdmundHillary ex:DeathDate "2008-01-11T00:00:00".
+
+
+ex:ReinholdMessner ex:hasName "Reinhold Messner".
+ex:ReinholdMessner ex:BirthDate "1944-09-17T00:00:00".
+ex:ReinholdMessner ex:hasClimbed ex:MountEverest .
+ex:ReinholdMessner ex:hasClimbed ex:Lhotse  .
+ex:AnnapurnaI ex:hasBeenClimbedBy ex:ReinholdMessner  .
+ex:ReinholdMessner ex:currentOccupation ex:Writer  .
+
+ex:ErnstReiss ex:hasName "Ernst Reiss".
+ex:ErnstReiss ex:BirthDate"1920-02-24T00:00:00".
+ex:ErnstReiss ex:DeathDate "2010-08-03T00:00:00".
+
+ex:FritzLuchsinger ex:hasName "Fritz Luchsinger".
+ex:FritzLuchsinger ex: BirthDate "1921-03-08T00:00:00".
+ex:FritzLuchsinger ex:DeathDate "1983-04-28T00:00:00".
+
+ex:BarryBishop ex:hasName "Barry Bishop".
+ex:BarryBishop ex:BirthDate"1932-01-13T00:00:00".
+ex:BarryBishop ex:DeathDate"1994-09-24T00:00:00".
+
+
+ex:MikeGill ex:hasName "Mike Gill".
+ex:MikeGill ex:BirthDate "1921-03-08T00:00:00"^^.
+ex:MikeGill ex:DeathDate"1983-04-28T00:00:00"^^.
+ex:MikeWard ex:hasName "Michael John Ward".
+
+
+ex:LudwigPurtscheller ex:hasName "Ludwig Purtscheller".
+ex:LudwigPurtscheller ex:BirthDate"1849-10-06T00:00:00".
+ex:LudwigPurtscheller ex:DeathDate "1900-03-03T00:00:00".
+
+ex:HansMeyer ex:hasName "Hans Meyer".
+
+ex:WallyRomanes ex:hasName "Wally Romanes".
+
+ 
+
+Properties explained with domain and range
+
+
+ ex:hasBeenClimbedBy a rdf:Property.
+ex:firstClimbedBy rdfs:SubPropertyOf ex:hasBeenClimbedBy.
+ex:firstClimbedBy rdfs:domain ex:Mountain; rdfs:range ex:Person.
+ex:hasClimbed a rdf:Property.
+ex:firstClimbedBy rdfs:domain ex:Person; rdfs:range ex:Mountain.
+ex:hasClimbed owl:inverseOf ex:hasBeenClimbedBy.
+
+ex:LocatedIn a rdf:Property.
+ex:locatedInRegion rdfs:SubPropertyOf ex:LocatedIn.
+ex:locatedInRegion rdfs:domain ex:Mountain; rdfs:range ex:Region.
+ex:RegLocatedInC rdfs:SubPropertyOf ex:LocatedIn.
+ex:RegLocatedInC rdfs:domain ex:Region; rdfs:range ex:Country.
+
+ex:CapitalOf rdfs:SubPropertyOf ex:LocatedIn.
+ex:CapitalOf rdfs:domain ex:City; rdfs:range ex:Country.ex:CapitalOf a  owl:InverseFunctionalProperty
+
+ex:HasCapital a rdfs:Property.
+ex:HasCapital rdfs:domain ex:Country; rdfs:range ex:City.
+ex:HasCapital a owl:FunctionalProperty.
+ex:CapitalOf owl:inverseOf ex:HasCapital
+
+ex:hasPopulation a owl:DataTypeProperty.
+
+ex:hasPopulation a owl:InverseFunctionalProperty
+.
+ex:hasPopulation rdfs:domain ex:Country.
+
+ex:hasPopulation rdfs:range rdfs:Literal.
+
+
+
+Classes
+
+ex:Country a rdfs:Class.
+ex:City a rdfs:Class.
+ex:City rdfs:subClassOf ex:Country.
+ex:Region a rdfs:Class.
+ex:Region owl:equivalentClass ex:Country.
+
+ex:Mountain a rdfs:Class.
+
+
+ex:firstClimbed a owl:ObjectProperty.
+ex:firstClimbedBy a owl:ObjectProperty.
+ex:firstClimbedBy rdfs:subPropertyOf ex:firstClimbed.
+ex:firstClimbedBy rdfs:domain ex:Mountain.
+ex:firstClimbedBy rdfs:range ex:Person.
+
+ex:Mountain owl:disjointWith ex:Country. 
+ex:Mountain owl:disjointWith ex:City. 
+ex:Mountain owl:disjointWith ex:Region. 
+ex:Mountain owl:disjointWith ex:Person. 
+ex:Country owl:disjointWith ex:City. 
+ex:Country owl:disjointWith ex:Region. 
+ex:Country owl:disjointWith ex:Person. 
+ex:City owl:disjointWith ex:Region.
+ ex:City owl:disjointWith ex:Person. 
+ex:Region owl:disjointWith ex:Person.
+
+
+
+
+
+
+
+
+
